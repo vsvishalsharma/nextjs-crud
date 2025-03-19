@@ -15,7 +15,7 @@ The project is powered by [NextJS](https://nextjs.org/docs) and styles using [Sh
 ## Run Locally
 Install Dependencies
 ```bash
-    npm i
+npm i
 ```
 Configure Docker
 ```bash
@@ -30,6 +30,11 @@ npx prisma migrate dev --name init
 After that, start the development server
 ```bash
 npm run dev
+```
+
+To Run Unit test in the root
+```bash
+npm test
 ```
 
 ## Features
