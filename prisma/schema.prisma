@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+//  IMPORTANT!!!  Run the following commands after editing this file:
+//npx prisma migrate dev --name
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id String @id @default(cuid())
+  name String
+  price Float
+  barcode String
+  stock Int
+  unit String
+  time_added String
+  OrderItem OrderItem[]
+}
+
+model Order {
+  id String @id @default(cuid())
+  customer_name String
+  time_added String
+  total_price Float
+  status String
+  OrderItem OrderItem[]
+}
+
+model OrderItem {
+  id String @id @default(cuid())
+  order_id String
+  product_id String
+  item_name String
+  quantity Int
+  price Float
+  unit String
+  barcode String
+
+  // Foreign keys
+  order Order @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+}
